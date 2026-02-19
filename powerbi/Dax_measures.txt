@@ -1,0 +1,58 @@
+# E-commerce Dashboard DAX Measures
+
+## Funnel Analysis
+Funnel_Value = 
+SWITCH(
+    SELECTEDVALUE(Funnel_Stages[Stage]),
+    "Visits",        COUNTROWS('ecommerece ecommerce_data'),
+    "Added to cart", SUM('ecommerece ecommerce_data'[added_to_cart]),
+    "Purchased",     SUM('ecommerece ecommerce_data'[purchased])
+)
+
+Add_to_Cart_Rate = 
+DIVIDE(SUM('ecommerece ecommerce_data'[added_to_cart]), COUNTROWS('ecommerece ecommerce_data'))
+
+Purchase_Rate = 
+DIVIDE(SUM('ecommerece ecommerce_data'[purchased]), COUNTROWS('ecommerece ecommerce_data'))
+
+## Revenue Analysis
+Total_Revenue = 
+SUMX('ecommerece ecommerce_data', 
+    'ecommerece ecommerce_data'[unit_price] * 'ecommerece ecommerce_data'[purchased]
+)
+
+Avg_Order_Value = 
+DIVIDE([Total_Revenue], SUM('ecommerece ecommerce_data'[purchased]))
+
+## Customer Satisfaction
+Avg_Rating = 
+AVERAGE('ecommerece ecommerce_data'[rating])
+
+## Max_Revenue_Amount
+Max_Revenue_Amount = 
+VAR DateTable =
+    SUMMARIZE (
+        'e-commerce',
+        'e-commerce'[visit_date],
+        "DateRevenue", [Total_Revenue]
+    )
+VAR MaxRow =
+    TOPN ( 1, DateTable, [DateRevenue], DESC )
+RETURN
+MAXX ( MaxRow, [DateRevenue] )
+
+#max_revenue_day
+Max_Revenue_Date = 
+VAR DateTable =
+    SUMMARIZE (
+        'e-commerce',
+        'e-commerce'[visit_date],
+        "DateRevenue", [total_revenue]
+    )
+VAR MaxRow =
+    TOPN ( 1, DateTable, [DateRevenue], DESC )
+RETURN
+MAXX ( MaxRow, 'e-commerce'[visit_date] )
+
+## Traffic Metrics
+Total_Visits = COUNTROWS('ecommerece ecommerce_data')
