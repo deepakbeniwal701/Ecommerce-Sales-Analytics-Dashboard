@@ -17,4 +17,11 @@
 - **Slicers**: MonthYear, Location, Device_Type, Marketing Channel
 - **Data**: 10K+ e-commerce sessions (visits → purchases → ratings)
 
+
 ##
+**Live Dashboard**: [Power BI Service - Publish to get link](https://app.powerbi.com/groups/me/reports/dc67d77a-37d9-4d53-a5fa-f4fb0ed68690/20a18bc393e42eb8e314?experience=power-bi)  
+**Full Code**: https://github.com/deepakbeniwal701/Ecommerce-Sales-Analytics-Dashboard
+
+---
+*Deepak | Data Analyst | Gurugram | Open to opportunities 🚀*
+
